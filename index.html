@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="mr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fashion Store | Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" id="brandName">Fashion Store</a>
+    <div class="search-wrap"><input id="searchInput" type="search" placeholder="कपडे शोधा..."><button id="searchBtn">शोधा</button></div>
+    <div class="header-actions">
+      <button class="ghost" id="adminToggle">Admin</button>
+      <button class="cart-button" id="cartToggle">🛒 Cart <span id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">NEW SEASON • NEW STYLE</p>
+      <h1>तुझा स्टाइल,<br><span>तुझी ओळख.</span></h1>
+      <p>दररोजच्या वापरासाठी आणि खास प्रसंगांसाठी फॅशन.</p>
+      <button class="primary" id="shopNow">खरेदी सुरू करा</button>
+    </div>
+    <div class="hero-art" aria-label="Fashion illustration">
+      <div class="sun"></div><div class="fashion-shape">STYLE<br>YOUR<br>DAY</div>
+    </div>
+  </section>
+
+  <nav class="categories" id="categories">
+    <button class="category active" data-category="All">सर्व वस्तू</button>
+    <button class="category" data-category="Men">Men</button>
+    <button class="category" data-category="Women">Women</button>
+    <button class="category" data-category="Kids">Kids</button>
+    <button class="category" data-category="Accessories">Accessories</button>
+  </nav>
+
+  <main>
+    <div class="section-heading"><div><p class="eyebrow">OUR COLLECTION</p><h2>लोकप्रिय उत्पादने</h2></div><span id="productCount"></span></div>
+    <section id="productGrid" class="product-grid"></section>
+    <section id="cartPanel" class="panel hidden">
+      <div class="panel-heading"><h2>तुझी Cart</h2><button class="text-button" id="closeCart">✕ बंद करा</button></div>
+      <div id="cartItems"></div>
+      <div class="cart-total"><span>एकूण</span><strong id="cartTotal">₹0</strong></div>
+      <button class="primary full" id="goCheckout">Checkout करा</button>
+    </section>
+
+    <section id="checkoutPanel" class="panel hidden">
+      <div class="panel-heading"><h2>Checkout</h2><button class="text-button" id="closeCheckout">✕ बंद करा</button></div>
+      <p class="notice">हा फक्त Demo आहे. खरे पेमेंट घेतले जात नाही.</p>
+      <form id="checkoutForm" class="checkout-form">
+        <label>पूर्ण नाव<input name="name" required placeholder="तुझे नाव"></label>
+        <label>मोबाईल नंबर<input name="phone" required inputmode="numeric" pattern="[0-9]{10}" placeholder="10 अंकी नंबर"></label>
+        <label>डिलिव्हरीचा पत्ता<textarea name="address" required rows="3" placeholder="पूर्ण पत्ता"></textarea></label>
+        <button class="primary full" type="submit">Demo Order Place करा</button>
+      </form>
+    </section>
+
+    <section id="successPanel" class="panel hidden success">
+      <div class="success-icon">✓</div><h2>ऑर्डर तयार झाली!</h2>
+      <p id="orderMessage">ही Demo order आहे.</p>
+      <button class="primary" id="continueShopping">खरेदी सुरू ठेवा</button>
+    </section>
+
+    <section id="adminPanel" class="panel hidden">
+      <div class="panel-heading"><h2>Admin Panel</h2><button class="text-button" id="closeAdmin">✕ बंद करा</button></div>
+      <p class="notice">हा Demo डेटा या ब्राउझरमध्ये सेव्ह होतो. खऱ्या ग्राहकांसाठी ऑनलाइन database/backend आवश्यक आहे.</p>
+      <div class="admin-grid">
+        <form id="productForm" class="checkout-form">
+          <h3 id="productFormTitle">नवीन Product जोडा</h3>
+          <input type="hidden" name="id">
+          <label>Product Name<input name="name" required placeholder="उदा. Casual Shirt"></label>
+          <label>Category<select name="category"><option>Men</option><option>Women</option><option>Kids</option><option>Accessories</option></select></label>
+          <label>किंमत (₹)<input name="price" type="number" min="1" required placeholder="799"></label>
+          <label>फोटो URL (ऐच्छिक)<input name="image" type="url" placeholder="https://..."></label>
+          <label>किंवा फोटो निवडा<input name="imageFile" type="file" accept="image/*"></label>
+          <div class="form-actions"><button class="primary" type="submit">Save Product</button><button class="secondary" type="button" id="cancelEdit">Clear</button></div>
+        </form>
+        <div>
+          <h3>Website Settings</h3>
+          <form id="settingsForm" class="checkout-form">
+            <label>Website Name<input name="storeName" required placeholder="Fashion Store"></label>
+            <label>Accent Colour<input name="accent" type="color" value="#2874f0"></label>
+            <button class="primary" type="submit">Settings Save करा</button>
+          </form>
+          <h3 class="admin-list-title">Products व्यवस्थापन</h3>
+          <div id="adminProductList"></div>
+        </div>
+      </div>
+      <div class="orders-area"><h3>Demo Orders</h3><div id="ordersList"></div></div>
+    </section>
+  </main>
+
+  <footer><strong id="footerBrand">Fashion Store</strong><span>Fashion shopping website • Working demo</span><span>Demo only — payments are not enabled.</span></footer>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
