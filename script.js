@@ -13,7 +13,7 @@ const read = (key, fallback) => { try { const v=localStorage.getItem(key); retur
 let products = read("fashionDemoProducts", defaultProducts);
 let cart = read("fashionDemoCart", []);
 let orders = read("fashionDemoOrders", []);
-let settings = read("fashionDemoSettings", {storeName:"Fashion Store",accent:"#2874f0"});
+let settings = read("fashionDemoSettings", {storeName:"Vastrmanjiri",accent:"#2874f0"});
 let activeCategory = "All";
 let toastTimer;
 function saveAll(){ localStorage.setItem("fashionDemoProducts",JSON.stringify(products)); localStorage.setItem("fashionDemoCart",JSON.stringify(cart)); localStorage.setItem("fashionDemoOrders",JSON.stringify(orders)); localStorage.setItem("fashionDemoSettings",JSON.stringify(settings)); }
@@ -58,5 +58,5 @@ $("continueShopping").addEventListener("click",()=>{hidePanels();window.scrollTo
 $("productForm").addEventListener("submit",e=>{e.preventDefault();const form=e.currentTarget;const id=form.elements.id.value||"p"+Date.now();const file=form.elements.imageFile.files[0];const existing=products.find(p=>p.id===id);const saveProduct=(image)=>{const p={id,name:form.elements.name.value.trim(),category:form.elements.category.value,price:Number(form.elements.price.value),image:image||"",emoji:existing?.emoji||"👕"};if(existing)products=products.map(x=>x.id===id?p:x);else products.push(p);saveAll();renderProducts();renderAdmin();resetProductForm();toast("Product सेव्ह झाला!");};if(file){const reader=new FileReader();reader.onload=()=>saveProduct(reader.result);reader.readAsDataURL(file);}else saveProduct(form.elements.image.value.trim()||(existing?existing.image:""));});
 $("adminProductList").addEventListener("click",e=>{const edit=e.target.closest("[data-edit]");const del=e.target.closest("[data-delete]");if(edit){const p=products.find(p=>p.id===edit.dataset.edit);if(!p)return;const f=$("productForm");f.elements.id.value=p.id;f.elements.name.value=p.name;f.elements.category.value=p.category;f.elements.price.value=p.price;f.elements.image.value=p.image.startsWith("data:")?"":p.image;$("productFormTitle").textContent="Product Edit करा";$("productForm").scrollIntoView({behavior:"smooth",block:"center"});}if(del){const id=del.dataset.delete;products=products.filter(p=>p.id!==id);cart=cart.filter(i=>i.id!==id);saveAll();renderProducts();renderCart();renderAdmin();toast("Product Delete झाला.");}});
 $("cancelEdit").addEventListener("click",resetProductForm);
-$("settingsForm").addEventListener("submit",e=>{e.preventDefault();const f=e.currentTarget;settings={storeName:f.elements.storeName.value.trim()||"Fashion Store",accent:f.elements.accent.value};saveAll();applySettings();toast("Website settings सेव्ह झाल्या.");});
+$("settingsForm").addEventListener("submit",e=>{e.preventDefault();const f=e.currentTarget;settings={storeName:f.elements.storeName.value.trim()||"Vastrmanjiri",accent:f.elements.accent.value};saveAll();applySettings();toast("Website settings सेव्ह झाल्या.");});
 applySettings();renderProducts();renderCart();
